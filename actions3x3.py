@@ -47,8 +47,12 @@ def rotate_pattern(pattern: list) -> list:
     return result
 
 
-def action_right(pattern: list) -> list:
+def forward_movement(pattern: list) -> list:
     for row in pattern:
+        if row[2] == 0:
+            row[2] = row[1]
+            row[1] = row[0]
+            row[0] = 0
         if row[2] == row[1]:
             row[2] = row[2] + row[1]
             row[1] = row[0]
@@ -65,7 +69,7 @@ def action_right(pattern: list) -> list:
     return pattern
 
 
-def action_left(pattern: list) -> list:
+def backward_movement(pattern: list) -> list:
     for row in pattern:
         row.reverse()
         if row[2] == row[1]:
@@ -82,29 +86,22 @@ def action_left(pattern: list) -> list:
             row[1] = row[0]
             row[0] = 0
         row.reverse()
+    return pattern
+
+
+def action_right(pattern: list) -> list:
+    pattern = forward_movement(pattern)
+    return pattern
+
+
+def action_left(pattern: list) -> list:
+    pattern = backward_movement(pattern)
     return pattern
 
 
 def action_up(pattern: list) -> list:
     pattern = rotate_pattern(pattern)
-    for row in pattern:
-        if row[2] == 0:
-            row[2] = row[1]
-            row[1] = row[0]
-            row[0] = 0
-        if row[2] == row[1]:
-            row[2] = row[2] + row[1]
-            row[1] = row[0]
-            row[0] = 0
-        if row[0] == row[1]:
-            row[1] = row[1] + row[0]
-            row[0] = 0
-        if row[2] == 0:
-            row[2] = row[1]
-            row[1] = row[0]
-        if row[1] == 0:
-            row[1] = row[0]
-            row[0] = 0
+    pattern = forward_movement(pattern)
     pattern = rotate_pattern(pattern)
     pattern = rotate_pattern(pattern)
     pattern = rotate_pattern(pattern)
@@ -112,28 +109,18 @@ def action_up(pattern: list) -> list:
 
 
 def action_down(pattern: list) -> list:
-    for row in pattern:
-        row.reverse()
-        if row[2] == row[1]:
-            row[2] = row[2] + row[1]
-            row[1] = row[0]
-            row[0] = 0
-        if row[0] == row[1]:
-            row[1] = row[1] + row[0]
-            row[0] = 0
-        if row[2] == 0:
-            row[2] = row[1]
-            row[1] = row[0]
-        if row[1] == 0:
-            row[1] = row[0]
-            row[0] = 0
-        row.reverse()
+    pattern = rotate_pattern(pattern)
+    pattern = backward_movement(pattern)
+    pattern = rotate_pattern(pattern)
+    pattern = rotate_pattern(pattern)
+    pattern = rotate_pattern(pattern)
     return pattern
 
 
 # output_pattern = action_right(input_pattern)
 # output_pattern = action_left(input_pattern)
-output_pattern = action_up(input_pattern)
+# output_pattern = action_up(input_pattern)
+output_pattern = action_down(input_pattern)
 
 print('output pattern:')
 for row in output_pattern:
