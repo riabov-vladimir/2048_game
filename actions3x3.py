@@ -13,16 +13,6 @@ C1, C2, C3 = 8, 0, 8
 B1, B2, B3 = 4, 4, 0
 A1, A2, A3 = 4, 2, 2
 
-# C1, C2, C3 = 0, 0, 0
-# B1, B2, B3 = 4, 4, 0
-# A1, A2, A3 = 4, 2, 2
-
-# print(f"""input pattern:
-# {C1}, {C2}, {C3}
-# {B1}, {B2}, {B3}
-# {A1}, {A2}, {A3}
-# """)
-
 input_pattern = [
     [C1, C2, C3],
     [B1, B2, B3],
@@ -53,19 +43,22 @@ def forward_movement(pattern: list) -> list:
             row[2] = row[1]
             row[1] = row[0]
             row[0] = 0
+            # print(row)
+        if row[1] == 0:
+            row[1] = row[0]
+            row[0] = 0
         if row[2] == row[1]:
             row[2] = row[2] + row[1]
             row[1] = row[0]
             row[0] = 0
+            # print(0)
         if row[0] == row[1]:
             row[1] = row[1] + row[0]
             row[0] = 0
         if row[2] == 0:
             row[2] = row[1]
             row[1] = row[0]
-        if row[1] == 0:
-            row[1] = row[0]
-            row[0] = 0
+
     return pattern
 
 
@@ -117,11 +110,24 @@ def action_down(pattern: list) -> list:
     return pattern
 
 
-# output_pattern = action_right(input_pattern)
-# output_pattern = action_left(input_pattern)
-# output_pattern = action_up(input_pattern)
-output_pattern = action_down(input_pattern)
+pattern = action_right(input_pattern)
 
-print('output pattern:')
-for row in output_pattern:
+
+print('move right:')
+for row in pattern:
+    print(row)
+
+pattern = action_left(pattern)
+print('move left:')
+for row in pattern:
+    print(row)
+
+pattern = action_up(pattern)
+print('move up:')
+for row in pattern:
+    print(row)
+
+pattern = action_down(pattern)
+print('move down:')
+for row in pattern:
     print(row)
