@@ -18,6 +18,11 @@ input_pattern = [
     [B1, B2, B3],
     [A1, A2, A3]
 ]
+
+
+score = 0
+
+
 print('input pattern:')
 for row in input_pattern:
     print(row)
@@ -38,12 +43,12 @@ def rotate_pattern(pattern: list) -> list:
 
 
 def forward_movement(pattern: list) -> list:
+    global score
     for row in pattern:
         if row[2] == 0:
             row[2] = row[1]
             row[1] = row[0]
             row[0] = 0
-            # print(row)
         if row[1] == 0:
             row[1] = row[0]
             row[0] = 0
@@ -51,27 +56,30 @@ def forward_movement(pattern: list) -> list:
             row[2] = row[2] + row[1]
             row[1] = row[0]
             row[0] = 0
-            # print(0)
+            score += row[2] * 2
         if row[0] == row[1]:
             row[1] = row[1] + row[0]
             row[0] = 0
+            score += row[1] * 2
         if row[2] == 0:
             row[2] = row[1]
             row[1] = row[0]
-
     return pattern
 
 
 def backward_movement(pattern: list) -> list:
+    global score
     for row in pattern:
         row.reverse()
         if row[2] == row[1]:
             row[2] = row[2] + row[1]
             row[1] = row[0]
             row[0] = 0
+            score += row[1] * 2
         if row[0] == row[1]:
             row[1] = row[1] + row[0]
             row[0] = 0
+            score += row[1] * 2
         if row[2] == 0:
             row[2] = row[1]
             row[1] = row[0]
@@ -131,3 +139,5 @@ pattern = action_down(pattern)
 print('move down:')
 for row in pattern:
     print(row)
+
+print(f'Total score - {score} points')
