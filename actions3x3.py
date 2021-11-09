@@ -95,11 +95,18 @@ def backward_movement(pattern: list) -> list:
     global score
     for row in pattern:
         row.reverse()
+        if row[2] == 0:
+            row[2] = row[1]
+            row[1] = row[0]
+            row[0] = 0
+        if row[1] == 0:
+            row[1] = row[0]
+            row[0] = 0
         if row[2] == row[1]:
             row[2] = row[2] + row[1]
             row[1] = row[0]
             row[0] = 0
-            score += row[1] * 2
+            score += row[2] * 2
         if row[0] == row[1]:
             row[1] = row[1] + row[0]
             row[0] = 0
@@ -107,9 +114,6 @@ def backward_movement(pattern: list) -> list:
         if row[2] == 0:
             row[2] = row[1]
             row[1] = row[0]
-        if row[1] == 0:
-            row[1] = row[0]
-            row[0] = 0
         row.reverse()
     return pattern
 
