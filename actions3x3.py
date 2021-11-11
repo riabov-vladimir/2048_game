@@ -1,12 +1,3 @@
-# D1, D2, D3, D4 = None, None, None, None
-# C1, C2, C3, C4 = None, None, None, None
-# B1, B2, B3, B4 = None, None, None, None
-# A1, A2, A3, A4 = None, None, None, None
-
-# original test pattern
-# C1, C2, C3 = 8, 2, 8
-# B1, B2, B3 = 4, 4, 0
-# A1, A2, A3 = 4, 2, 2
 import random
 
 C1, C2, C3 = 0, 0, 0
@@ -52,6 +43,30 @@ def generate_tile_on_move(pattern: list, max_tile_value: int = 2) -> list:
     return pattern
 
 
+def common_move(row: list) -> list:
+    global score
+    if row[2] == 0:
+        row[2] = row[1]
+        row[1] = row[0]
+        row[0] = 0
+    if row[1] == 0:
+        row[1] = row[0]
+        row[0] = 0
+    if row[2] == row[1]:
+        row[2] = row[2] + row[1]
+        row[1] = row[0]
+        row[0] = 0
+        score += row[2] * 2
+    if row[0] == row[1]:
+        row[1] = row[1] + row[0]
+        row[0] = 0
+        score += row[1] * 2
+    if row[2] == 0:
+        row[2] = row[1]
+        row[1] = row[0]
+    return row
+
+
 def rotate_pattern(pattern: list) -> list:
     """
     Rotating 2D-pattern clockwise
@@ -69,51 +84,14 @@ def rotate_pattern(pattern: list) -> list:
 def forward_movement(pattern: list) -> list:
     global score
     for row in pattern:
-        if row[2] == 0:
-            row[2] = row[1]
-            row[1] = row[0]
-            row[0] = 0
-        if row[1] == 0:
-            row[1] = row[0]
-            row[0] = 0
-        if row[2] == row[1]:
-            row[2] = row[2] + row[1]
-            row[1] = row[0]
-            row[0] = 0
-            score += row[2] * 2
-        if row[0] == row[1]:
-            row[1] = row[1] + row[0]
-            row[0] = 0
-            score += row[1] * 2
-        if row[2] == 0:
-            row[2] = row[1]
-            row[1] = row[0]
+        common_move(row)
     return pattern
 
 
 def backward_movement(pattern: list) -> list:
-    global score
     for row in pattern:
         row.reverse()
-        if row[2] == 0:
-            row[2] = row[1]
-            row[1] = row[0]
-            row[0] = 0
-        if row[1] == 0:
-            row[1] = row[0]
-            row[0] = 0
-        if row[2] == row[1]:
-            row[2] = row[2] + row[1]
-            row[1] = row[0]
-            row[0] = 0
-            score += row[2] * 2
-        if row[0] == row[1]:
-            row[1] = row[1] + row[0]
-            row[0] = 0
-            score += row[1] * 2
-        if row[2] == 0:
-            row[2] = row[1]
-            row[1] = row[0]
+        common_move(row)
         row.reverse()
     return pattern
 
