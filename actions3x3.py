@@ -1,3 +1,12 @@
+# D1, D2, D3, D4 = None, None, None, None
+# C1, C2, C3, C4 = None, None, None, None
+# B1, B2, B3, B4 = None, None, None, None
+# A1, A2, A3, A4 = None, None, None, None
+
+# original test pattern
+# C1, C2, C3 = 8, 2, 8
+# B1, B2, B3 = 4, 4, 0
+# A1, A2, A3 = 4, 2, 2
 import random
 
 C1, C2, C3 = 0, 0, 0
@@ -28,20 +37,13 @@ def generate_tile_on_move(pattern: list, max_tile_value: int = 2) -> list:
     """
     zeros_numbers = []
     step_counter = 0
-
     for row in pattern:
         for tile in row:
             step_counter += 1
             if tile == 0:
                 zeros_numbers.append(step_counter)
-
-    try:
-        target_tile = random.choice(zeros_numbers)
-    except IndexError:
-        return pattern
-
+    target_tile = random.choice(zeros_numbers)
     print(f'random tile: {target_tile}')
-
     y = (target_tile - 1) // len(pattern)
     while target_tile > len(pattern):
         target_tile -= len(pattern)
