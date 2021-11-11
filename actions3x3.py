@@ -1,23 +1,7 @@
 import random
 
-C1, C2, C3 = 0, 0, 0
-B1, B2, B3 = 4, 0, 0
-A1, A2, A3 = 0, 2, 2
-
-input_pattern = [
-    [C1, C2, C3],
-    [B1, B2, B3],
-    [A1, A2, A3]
-]
-
-
 score = 0
-
-
-print('input pattern:')
-for row in input_pattern:
-    print(row)
-
+game_active = True
 
 def generate_tile_on_move(pattern: list, max_tile_value: int = 2) -> list:
     """
@@ -26,6 +10,8 @@ def generate_tile_on_move(pattern: list, max_tile_value: int = 2) -> list:
     :param max_tile_value:
     :return:
     """
+    global game_active
+
     zeros_numbers = []
     step_counter = 0
     for row in pattern:
@@ -33,8 +19,13 @@ def generate_tile_on_move(pattern: list, max_tile_value: int = 2) -> list:
             step_counter += 1
             if tile == 0:
                 zeros_numbers.append(step_counter)
+
+    if not zeros_numbers:  # if no zero tiles present in pattern -> game over! returns pattern as is
+        game_active = False
+        return pattern
+
     target_tile = random.choice(zeros_numbers)
-    print(f'random tile: {target_tile}')
+    # print(f'random tile: {target_tile}')
     y = (target_tile - 1) // len(pattern)
     while target_tile > len(pattern):
         target_tile -= len(pattern)
@@ -126,28 +117,3 @@ def action_down(pattern: list) -> list:
     pattern = rotate_pattern(pattern)
     generate_tile_on_move(pattern)
     return pattern
-
-
-pattern = action_right(input_pattern)
-
-print('move right:')
-for row in pattern:
-    print(row)
-
-pattern = action_left(pattern)
-print('move left:')
-for row in pattern:
-    print(row)
-
-pattern = action_up(pattern)
-print('move up:')
-for row in pattern:
-    print(row)
-
-pattern = action_down(pattern)
-print('move down:')
-for row in pattern:
-    print(row)
-
-print(f'Total score - {score} points')
-
