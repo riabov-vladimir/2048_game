@@ -9,23 +9,8 @@
 # A1, A2, A3 = 4, 2, 2
 import random
 
-C1, C2, C3 = 0, 0, 0
-B1, B2, B3 = 4, 0, 0
-A1, A2, A3 = 0, 2, 2
-
-input_pattern = [
-    [C1, C2, C3],
-    [B1, B2, B3],
-    [A1, A2, A3]
-]
-
-
 score = 0
 
-
-print('input pattern:')
-for row in input_pattern:
-    print(row)
 
 
 def generate_tile_on_move(pattern: list, max_tile_value: int = 2) -> list:
@@ -149,27 +134,4 @@ def action_down(pattern: list) -> list:
     generate_tile_on_move(pattern)
     return pattern
 
-
-pattern = action_right(input_pattern)
-
-print('move right:')
-for row in pattern:
-    print(row)
-
-pattern = action_left(pattern)
-print('move left:')
-for row in pattern:
-    print(row)
-
-pattern = action_up(pattern)
-print('move up:')
-for row in pattern:
-    print(row)
-
-pattern = action_down(pattern)
-print('move down:')
-for row in pattern:
-    print(row)
-
-print(f'Total score - {score} points')
 
