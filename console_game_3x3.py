@@ -1,3 +1,4 @@
+import actions3x3
 from actions3x3 import *
 from sys import stdout
 
@@ -11,9 +12,13 @@ pattern = [
     [A1, A2, A3]
 ]
 
-score = score
+# score = score
 action = ''
-game_active = True
+# game_active = True
+
+from actions3x3 import game_active, score
+
+print(score)
 
 generate_tile_on_move(pattern)
 generate_tile_on_move(pattern)
@@ -31,12 +36,12 @@ while game_active:
     action = ''
     for row in pattern:
         stdout.write(str(row) + '\n')
+
     stdout.write(f"""
-Your score: {score} pts 
+Your score: {actions3x3.score} pts 
 
 Use arrow keys and ur brains to play!
 
 """)
     action = input()
     stdout.flush()
-    stdout.write("\r  \r\n")
