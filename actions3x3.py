@@ -1,23 +1,7 @@
 import random
 from os import system, name
-from time import sleep
-
-# C1, C2, C3 = 0, 0, 0
-# B1, B2, B3 = 0, 0, 0
-# A1, A2, A3 = 0, 0, 0
-C1, C2, C3 = 2, 4, 8
-B1, B2, B3 = 2, 4, 8
-A1, A2, A3 = 4, 0, 0
-
-pattern = [
-    [C1, C2, C3],
-    [B1, B2, B3],
-    [A1, A2, A3]
-]
-
+game_active = True
 score = 0
-
-action = ''
 
 
 def clear_console():
@@ -147,79 +131,3 @@ def action_down(pattern: list) -> list:
     pattern = rotate_pattern(pattern)
     generate_tile_on_move(pattern)
     return pattern
-
-# auto game
-# while game_active:
-#     if not game_active:
-#         break
-#     action_right(pattern)
-#     for row in pattern:
-#         print(row)
-#     if not game_active:
-#         break
-#     action_left(pattern)
-#     for row in pattern:
-#         print(row)
-#     if not game_active:
-#         break
-#     action_up(pattern)
-#     for row in pattern:
-#         print(row)
-#     if not game_active:
-#         break
-#     action_down(pattern)
-#     for row in pattern:
-#         print(row)
-#
-# print(f"""
-# GAME OVER :(
-#
-# Your final score: {score} pts
-# """)
-#
-# quit()
-
-# manual game beginning
-
-# pattern = generate_tile_on_move(pattern)
-# pattern = generate_tile_on_move(pattern)
-game_active = True
-while game_active:
-    if action == '1':
-        pattern = action_right(pattern)
-    if action == '2':
-        pattern = action_left(pattern)
-    if action == '3':
-        pattern = action_up(pattern)
-    if action == '4':
-        pattern = action_down(pattern)
-
-    for row in pattern:
-        print(row)
-
-    print(f"""
-Your score: {score} pts
-
-Use arrow keys and ur brain to play!
-
-""")
-    zeros_numbers = []
-    for row in pattern:
-        for tile in row:
-            if tile == 0:
-                zeros_numbers.append(1)
-
-    if not zeros_numbers:
-        clear_console()
-        break
-
-    action = input()
-    clear_console()
-
-print(f"""
-GAME OVER :-(
-
-Your final score: {score} pts
-""")
-
-quit()

@@ -1,7 +1,5 @@
 import actions3x3
 from actions3x3 import *
-from sys import stdout
-
 C1, C2, C3 = 0, 0, 0
 B1, B2, B3 = 0, 0, 0
 A1, A2, A3 = 0, 0, 0
@@ -12,36 +10,53 @@ pattern = [
     [A1, A2, A3]
 ]
 
-# score = score
-action = ''
-# game_active = True
+action = None
 
-from actions3x3 import game_active, score
+# manual game beginning
 
-print(score)
+pattern = generate_tile_on_move(pattern)
+pattern = generate_tile_on_move(pattern)
 
-generate_tile_on_move(pattern)
-generate_tile_on_move(pattern)
-
-while game_active:
+while True:
     if action == '1':
-        action_right(pattern)
+        pattern = action_right(pattern)
     if action == '2':
-        action_left(pattern)
+        pattern = action_left(pattern)
     if action == '3':
-        action_up(pattern)
+        pattern = action_up(pattern)
     if action == '4':
-        action_down(pattern)
+        pattern = action_down(pattern)
 
-    action = ''
     for row in pattern:
-        stdout.write(str(row) + '\n')
+        print(row)
 
-    stdout.write(f"""
-Your score: {actions3x3.score} pts 
+    print(f"""
+Your score: {actions3x3.score} pts
 
-Use arrow keys and ur brains to play!
+Use arrow keys and ur brain to play!
 
 """)
+    zeros_numbers = []
+    for row in pattern:
+        for tile in row:
+            if tile == 0:
+                zeros_numbers.append(1)
+
+    if not zeros_numbers:
+        clear_console()
+        break
+
     action = input()
-    stdout.flush()
+    clear_console()
+
+# game over block
+
+for row in pattern:
+    print(row)
+print(f"""
+GAME OVER :-(
+
+Your final score: {actions3x3.score} pts
+""")
+
+quit()
