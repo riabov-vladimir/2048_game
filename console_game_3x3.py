@@ -47,7 +47,7 @@ Use arrow keys and ur brain to play!
         break
 
     action = input()
-    clear_console()
+    # clear_console()
 
 # game over block
 

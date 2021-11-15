@@ -1,5 +1,6 @@
 import random
 from os import system, name
+
 game_active = True
 score = 0
 
@@ -36,6 +37,11 @@ def common_move(row: list) -> list:
         row[2] = row[1]
         row[1] = row[0]
     return row
+
+
+def patterns_are_equal(pattern1: list, pattern2: list) -> bool:
+    if pattern1 == pattern2:
+        return True
 
 
 def generate_tile_on_move(pattern: list, max_tile_value: int = 2) -> list:
@@ -102,32 +108,46 @@ def backward_movement(pattern: list) -> list:
 
 
 def action_right(pattern: list) -> list:
+    reserve_pattern = pattern.copy()
     pattern = forward_movement(pattern)
-    generate_tile_on_move(pattern)
+    if patterns_are_equal(pattern, reserve_pattern):
+        print('reserve pattern')
+        for row in reserve_pattern:
+            print(row)
+        print('orig pattern')
+        for row in pattern:
+            print(row)
+        pattern = generate_tile_on_move(pattern)
     return pattern
 
 
 def action_left(pattern: list) -> list:
+    reserve_pattern = pattern.copy()
     pattern = backward_movement(pattern)
-    generate_tile_on_move(pattern)
+    if patterns_are_equal(pattern, reserve_pattern):
+        pattern = generate_tile_on_move(pattern)
     return pattern
 
 
 def action_up(pattern: list) -> list:
+    reserve_pattern = pattern.copy()
     pattern = rotate_pattern(pattern)
     pattern = forward_movement(pattern)
     pattern = rotate_pattern(pattern)
     pattern = rotate_pattern(pattern)
     pattern = rotate_pattern(pattern)
-    pattern = generate_tile_on_move(pattern)
+    if patterns_are_equal(pattern, reserve_pattern):
+        pattern = generate_tile_on_move(pattern)
     return pattern
 
 
 def action_down(pattern: list) -> list:
+    reserve_pattern = pattern.copy()
     pattern = rotate_pattern(pattern)
     pattern = backward_movement(pattern)
     pattern = rotate_pattern(pattern)
     pattern = rotate_pattern(pattern)
     pattern = rotate_pattern(pattern)
-    generate_tile_on_move(pattern)
+    if patterns_are_equal(pattern, reserve_pattern):
+        pattern = generate_tile_on_move(pattern)
     return pattern
