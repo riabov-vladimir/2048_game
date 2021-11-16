@@ -42,6 +42,8 @@ def common_move(row: list) -> list:
 def patterns_are_equal(pattern1: list, pattern2: list) -> bool:
     if pattern1 == pattern2:
         return True
+    else:
+        return False
 
 
 def generate_tile_on_move(pattern: list, max_tile_value: int = 2) -> list:
@@ -107,47 +109,107 @@ def backward_movement(pattern: list) -> list:
     return pattern
 
 
-def action_right(pattern: list) -> list:
-    reserve_pattern = pattern.copy()
-    pattern = forward_movement(pattern)
-    if patterns_are_equal(pattern, reserve_pattern):
-        print('reserve pattern')
-        for row in reserve_pattern:
-            print(row)
-        print('orig pattern')
-        for row in pattern:
-            print(row)
-        pattern = generate_tile_on_move(pattern)
-    return pattern
-
-
-def action_left(pattern: list) -> list:
-    reserve_pattern = pattern.copy()
-    pattern = backward_movement(pattern)
-    if patterns_are_equal(pattern, reserve_pattern):
-        pattern = generate_tile_on_move(pattern)
-    return pattern
+# def action_right(pattern: list) -> list:
+#     reserve_pattern = pattern.copy()
+#     reserve_pattern = reserve_pattern.copy()
+#     pattern = forward_movement(pattern)
+#     print('pattern input')
+#     for row in reserve_pattern:
+#         print(row)
+#     print('pattern mod')
+#     for row in pattern:
+#         print(row)
+#     print(patterns_are_equal(pattern1=pattern, pattern2=reserve_pattern))
+#     if patterns_are_equal(pattern1=pattern, pattern2=reserve_pattern):
+#         print('equal')
+#         result = pattern
+#     else:
+#         print('not equal')
+#         result = generate_tile_on_move(pattern)
+#     return result
+#
+#
+# def action_left(pattern: list) -> list:
+#     reserve_pattern = pattern.copy()
+#     reserve_pattern = reserve_pattern
+#     pattern = backward_movement(pattern)
+#     print('pattern input')
+#     for row in reserve_pattern:
+#         print(row)
+#     print('pattern mod')
+#     for row in pattern:
+#         print(row)
+#     print(patterns_are_equal(pattern1=pattern, pattern2=reserve_pattern))
+#     if patterns_are_equal(pattern1=pattern, pattern2=reserve_pattern):
+#         print('equal')
+#         result = pattern
+#     else:
+#         print('not equal')
+#         result = generate_tile_on_move(pattern)
+#     return result
 
 
 def action_up(pattern: list) -> list:
     reserve_pattern = pattern.copy()
+    reserve_pattern = reserve_pattern
     pattern = rotate_pattern(pattern)
     pattern = forward_movement(pattern)
     pattern = rotate_pattern(pattern)
     pattern = rotate_pattern(pattern)
     pattern = rotate_pattern(pattern)
-    if patterns_are_equal(pattern, reserve_pattern):
-        pattern = generate_tile_on_move(pattern)
-    return pattern
+    print('pattern input')
+    for row in reserve_pattern:
+        print(row)
+    print('pattern mod')
+    for row in pattern:
+        print(row)
+    print(patterns_are_equal(pattern1=pattern, pattern2=reserve_pattern))
+    if patterns_are_equal(pattern1=pattern, pattern2=reserve_pattern):
+        print('equal')
+        result = pattern
+    else:
+        print('not equal')
+        result = generate_tile_on_move(pattern)
+    return result
 
 
 def action_down(pattern: list) -> list:
     reserve_pattern = pattern.copy()
+    reserve_pattern = reserve_pattern
     pattern = rotate_pattern(pattern)
     pattern = backward_movement(pattern)
     pattern = rotate_pattern(pattern)
     pattern = rotate_pattern(pattern)
     pattern = rotate_pattern(pattern)
-    if patterns_are_equal(pattern, reserve_pattern):
-        pattern = generate_tile_on_move(pattern)
-    return pattern
+    print('pattern input')
+    for row in reserve_pattern:
+        print(row)
+    print('pattern mod')
+    for row in pattern:
+        print(row)
+
+    print(patterns_are_equal(pattern1=pattern, pattern2=reserve_pattern))
+    if patterns_are_equal(pattern1=pattern, pattern2=reserve_pattern):
+        print('equal')
+        result = pattern
+    else:
+        print('not equal')
+        result = generate_tile_on_move(pattern)
+    return result
+
+
+def action_right(pattern: list) -> list:
+    # reserve_pattern = pattern.copy()
+    result = action_right(pattern=pattern)
+    return result
+
+
+def action_left(pattern: list) -> list:
+    reserve_pattern = pattern.copy()
+    patternA = backward_movement(pattern=pattern)
+    if patterns_are_equal(pattern1=patternA, pattern2=reserve_pattern):
+        print('equal')
+        return patternA
+    print('not equal')
+    result = generate_tile_on_move(patternA)
+    return result

@@ -14,18 +14,18 @@ action = None
 
 # manual game beginning
 
-pattern = generate_tile_on_move(pattern)
-pattern = generate_tile_on_move(pattern)
+pattern = generate_tile_on_move(pattern=pattern)
+pattern = generate_tile_on_move(pattern=pattern)
 
 while True:
     if action == '1':
-        pattern = action_right(pattern)
+        pattern = action_right(pattern=pattern)
     if action == '2':
-        pattern = action_left(pattern)
+        pattern = action_left(pattern=pattern)
     if action == '3':
-        pattern = action_up(pattern)
+        pattern = action_up(pattern=pattern)
     if action == '4':
-        pattern = action_down(pattern)
+        pattern = action_down(pattern=pattern)
 
     for row in pattern:
         print(row)
@@ -47,7 +47,7 @@ Use arrow keys and ur brain to play!
         break
 
     action = input()
-    # clear_console()
+    clear_console()
 
 # game over block
 
