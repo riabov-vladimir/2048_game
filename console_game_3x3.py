@@ -1,5 +1,7 @@
 import actions3x3
 from actions3x3 import *
+from pynput import keyboard
+
 C1, C2, C3 = 0, 0, 0
 B1, B2, B3 = 0, 0, 0
 A1, A2, A3 = 0, 0, 0
@@ -10,7 +12,7 @@ pattern = [
     [A1, A2, A3]
 ]
 
-action = None
+action = None  # initial var for keyboard input
 
 # manual game beginning
 
@@ -20,12 +22,14 @@ pattern = generate_tile_on_move(pattern)
 while True:
     if action == '1':
         pattern = action_right(pattern)
-    if action == '2':
+    elif action == '2':
         pattern = action_left(pattern)
-    if action == '3':
+    elif action == '3':
         pattern = action_up(pattern)
-    if action == '4':
+    elif action == '4':
         pattern = action_down(pattern)
+    elif action == '5':
+        break
 
     for row in pattern:
         print(row)
@@ -46,8 +50,22 @@ Use arrow keys and ur brain to play!
         clear_console()
         break
 
-    action = input()
-    # clear_console()
+    # action = input()
+
+    with keyboard.Events() as events:
+        event = events.get()
+        if event.key == keyboard.Key.right:
+            action = '1'
+        elif event.key == keyboard.Key.left:
+            action = '2'
+        elif event.key == keyboard.Key.up:
+            action = '3'
+        elif event.key == keyboard.Key.down:
+            action = '4'
+        elif event.key == keyboard.Key.esc:
+            action = '5'
+
+    clear_console()
 
 # game over block
 

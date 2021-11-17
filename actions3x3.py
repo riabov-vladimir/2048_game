@@ -1,11 +1,15 @@
 import random
 from os import system, name
 
-game_active = True
-score = 0
+game_active = True  # A flag to continue auto-game
+score = 0  # Game score
 
 
 def clear_console():
+    """
+    Clears console output for 3 main OS types
+    :return:
+    """
     # for windows the name is 'nt'
     if name == 'nt':
         _ = system('cls')
@@ -16,6 +20,12 @@ def clear_console():
 
 
 def common_move(row: list) -> list:
+    """
+    A basic 2048 game mechanics. Moves and sums numbers in a list with len=3.
+    Broadcasts game score through global var.
+    :param row:
+    :return:
+    """
     global score
     if row[2] == 0:
         row[2] = row[1]
@@ -40,13 +50,21 @@ def common_move(row: list) -> list:
 
 
 def patterns_are_equal(pattern1: list, pattern2: list) -> bool:
+    """
+    Compares two lists, returns bool.
+    :param pattern1:
+    :param pattern2:
+    :return:
+    """
     if pattern1 == pattern2:
         return True
-
+    else:
+        return False
 
 def generate_tile_on_move(pattern: list, max_tile_value: int = 2) -> list:
     """
-
+    Replaces a random zero with a provided number.
+    Works with a square 2D arrays.
     :param pattern:
     :param max_tile_value:
     :return:
@@ -93,13 +111,22 @@ def rotate_pattern(pattern: list) -> list:
 
 
 def forward_movement(pattern: list) -> list:
+    """
+    Adapts common_move to work with a list of lists frontwards.
+    :param pattern:
+    :return:
+    """
     for row in pattern:
         common_move(row)
     return pattern
 
 
 def backward_movement(pattern: list) -> list:
-    global score
+    """
+    Adapts common_move to work with a list of lists backwards.
+    :param pattern:
+    :return:
+    """
     for row in pattern:
         row.reverse()
         common_move(row)
@@ -108,46 +135,32 @@ def backward_movement(pattern: list) -> list:
 
 
 def action_right(pattern: list) -> list:
-    reserve_pattern = pattern.copy()
     pattern = forward_movement(pattern)
-    if patterns_are_equal(pattern, reserve_pattern):
-        print('reserve pattern')
-        for row in reserve_pattern:
-            print(row)
-        print('orig pattern')
-        for row in pattern:
-            print(row)
-        pattern = generate_tile_on_move(pattern)
+    pattern = generate_tile_on_move(pattern)
     return pattern
 
 
 def action_left(pattern: list) -> list:
-    reserve_pattern = pattern.copy()
     pattern = backward_movement(pattern)
-    if patterns_are_equal(pattern, reserve_pattern):
-        pattern = generate_tile_on_move(pattern)
+    pattern = generate_tile_on_move(pattern)
     return pattern
 
 
 def action_up(pattern: list) -> list:
-    reserve_pattern = pattern.copy()
     pattern = rotate_pattern(pattern)
     pattern = forward_movement(pattern)
     pattern = rotate_pattern(pattern)
     pattern = rotate_pattern(pattern)
     pattern = rotate_pattern(pattern)
-    if patterns_are_equal(pattern, reserve_pattern):
-        pattern = generate_tile_on_move(pattern)
+    pattern = generate_tile_on_move(pattern)
     return pattern
 
 
 def action_down(pattern: list) -> list:
-    reserve_pattern = pattern.copy()
     pattern = rotate_pattern(pattern)
     pattern = backward_movement(pattern)
     pattern = rotate_pattern(pattern)
     pattern = rotate_pattern(pattern)
     pattern = rotate_pattern(pattern)
-    if patterns_are_equal(pattern, reserve_pattern):
-        pattern = generate_tile_on_move(pattern)
+    pattern = generate_tile_on_move(pattern)
     return pattern
