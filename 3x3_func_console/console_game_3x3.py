@@ -56,17 +56,18 @@ Use arrow keys and ur brain to play!
 
     with keyboard.Events() as events:
         event = events.get()
-        if event.key == keyboard.Key.right:
-            action = '1'
-        elif event.key == keyboard.Key.left:
-            action = '2'
-        elif event.key == keyboard.Key.up:
-            action = '3'
-        elif event.key == keyboard.Key.down:
-            action = '4'
-        elif event.key == keyboard.Key.esc:
-            action = '5'
     sleep(0.1)
+    if event.key == keyboard.Key.right:
+        action = '1'
+    elif event.key == keyboard.Key.left:
+        action = '2'
+    elif event.key == keyboard.Key.up:
+        action = '3'
+    elif event.key == keyboard.Key.down:
+        action = '4'
+    elif event.key == keyboard.Key.esc:
+        action = '5'
+
     clear_console()
 
 # game over block
