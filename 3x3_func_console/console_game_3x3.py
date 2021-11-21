@@ -1,3 +1,5 @@
+from time import sleep
+
 import actions3x3
 from actions3x3 import *
 from pynput import keyboard
@@ -64,7 +66,7 @@ Use arrow keys and ur brain to play!
             action = '4'
         elif event.key == keyboard.Key.esc:
             action = '5'
-
+    sleep(0.1)
     clear_console()
 
 # game over block
