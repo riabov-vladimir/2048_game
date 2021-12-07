@@ -16,10 +16,32 @@ class Move:
         self.pattern = generate_tile_on_move(self.pattern)
         self.pattern = generate_tile_on_move(self.pattern)
 
-    def __str__(self):
-        return str(self.pattern)
+    def action_right(self):
+        self.pattern = action_right(self.pattern)
 
+    def action_left(self):
+        self.pattern = action_left(self.pattern)
+
+    def action_up(self):
+        self.pattern = action_up(self.pattern)
+
+    def action_down(self):
+        self.pattern = action_down(self.pattern)
+
+    def __str__(self):
+        return f"""{self.pattern[0]}
+{self.pattern[1]}
+{self.pattern[2]}
+"""
 
 a = Move()
 
+print(a)
+a.action_up()
+print(a)
+a.action_down()
+print(a)
+a.action_left()
+print(a)
+a.action_right()
 print(a)
