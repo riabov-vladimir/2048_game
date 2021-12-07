@@ -1,40 +1,28 @@
 from time import sleep
-
+from Moves import Move
 import actions3x3
 from actions3x3 import *
 from pynput import keyboard
 
-C1, C2, C3 = 0, 0, 0
-B1, B2, B3 = 0, 0, 0
-A1, A2, A3 = 0, 0, 0
-
-pattern = [
-    [C1, C2, C3],
-    [B1, B2, B3],
-    [A1, A2, A3]
-]
 
 action = None  # initial var for keyboard input
 
 # manual game beginning
-
-pattern = generate_tile_on_move(pattern)
-pattern = generate_tile_on_move(pattern)
+move = Move()
 
 while True:
     if action == '1':
-        pattern = action_right(pattern)
+        move.action_right()
     elif action == '2':
-        pattern = action_left(pattern)
+        move.action_left()
     elif action == '3':
-        pattern = action_up(pattern)
+        move.action_up()
     elif action == '4':
-        pattern = action_down(pattern)
+        move.action_down()
     elif action == '5':
         break
 
-    for row in pattern:
-        print(row)
+    print(move)
 
     print(f"""
 Your score: {actions3x3.score} pts
@@ -43,7 +31,7 @@ Use arrow keys and ur brain to play!
 
 """)
     zeros_numbers = []
-    for row in pattern:
+    for row in move.pattern:
         for tile in row:
             if tile == 0:
                 zeros_numbers.append(1)
@@ -72,8 +60,7 @@ Use arrow keys and ur brain to play!
 
 # game over block
 
-for row in pattern:
-    print(row)
+print(move)
 print(f"""
 GAME OVER :-(
 

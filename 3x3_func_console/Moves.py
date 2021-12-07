@@ -33,15 +33,3 @@ class Move:
 {self.pattern[1]}
 {self.pattern[2]}
 """
-
-a = Move()
-
-print(a)
-a.action_up()
-print(a)
-a.action_down()
-print(a)
-a.action_left()
-print(a)
-a.action_right()
-print(a)

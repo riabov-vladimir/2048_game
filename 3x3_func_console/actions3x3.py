@@ -84,7 +84,7 @@ def generate_tile_on_move(pattern: list, max_tile_value: int = 2) -> list:
         return pattern
     target_tile = random.choice(zeros_numbers)
 
-    print(f'random tile: {target_tile}')
+    # print(f'random tile: {target_tile}')
 
     y = (target_tile - 1) // len(pattern)
 
