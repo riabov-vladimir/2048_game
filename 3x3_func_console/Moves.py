@@ -1,5 +1,6 @@
 from actions3x3 import *
 
+
 class Move:
 
     pattern = []
