@@ -1,5 +1,6 @@
-import random
 from os import system, name
+import random
+
 
 game_active = True  # A flag to continue auto-game
 score = 0  # Game score
@@ -61,39 +62,6 @@ def patterns_are_equal(pattern1: list, pattern2: list) -> bool:
     else:
         return False
 
-def generate_tile_on_move(pattern: list, max_tile_value: int = 2) -> list:
-    """
-    Replaces a random zero with a provided number.
-    Works with a square 2D arrays.
-    :param pattern:
-    :param max_tile_value:
-    :return:
-    """
-    global game_active
-
-    zeros_numbers = []
-    step_counter = 0
-    for row in pattern:
-        for tile in row:
-            step_counter += 1
-            if tile == 0:
-                zeros_numbers.append(step_counter)
-
-    if not zeros_numbers:
-        game_active = False
-        return pattern
-    target_tile = random.choice(zeros_numbers)
-
-    # print(f'random tile: {target_tile}')
-
-    y = (target_tile - 1) // len(pattern)
-
-    while target_tile > len(pattern):
-        target_tile -= len(pattern)
-    x = target_tile - 1
-
-    pattern[y][x] = max_tile_value
-    return pattern
 
 
 def rotate_pattern(pattern: list) -> list:
