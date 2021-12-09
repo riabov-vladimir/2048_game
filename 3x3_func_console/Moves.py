@@ -4,6 +4,7 @@ from actions3x3 import *
 class Move:
 
     pattern = []
+    prev_pattern = []
 
     def __init__(self):
 
@@ -13,11 +14,23 @@ class Move:
             [0, 0, 0]
         ]
 
+        self.prev_pattern = [[
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ]]
+
         self.pattern = generate_tile_on_move(self.pattern)
         self.pattern = generate_tile_on_move(self.pattern)
 
     def action_right(self):
         self.pattern = action_right(self.pattern)
+        if not self.pattern == self.prev_pattern:
+            print('patterns are different')
+            self.pattern = generate_tile_on_move(self.pattern)
+        else:
+            print('patterns are equal')
+        self.prev_pattern = self.pattern.copy()
 
     def action_left(self):
         self.pattern = action_left(self.pattern)
@@ -32,4 +45,8 @@ class Move:
         return f"""{self.pattern[0]}
 {self.pattern[1]}
 {self.pattern[2]}
+prev_pattern^
+{self.prev_pattern[0]}
+{self.prev_pattern[1]}
+{self.prev_pattern[2]}
 """

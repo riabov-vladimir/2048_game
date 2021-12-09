@@ -136,13 +136,11 @@ def backward_movement(pattern: list) -> list:
 
 def action_right(pattern: list) -> list:
     pattern = forward_movement(pattern)
-    pattern = generate_tile_on_move(pattern)
     return pattern
 
 
 def action_left(pattern: list) -> list:
     pattern = backward_movement(pattern)
-    pattern = generate_tile_on_move(pattern)
     return pattern
 
 
@@ -152,7 +150,6 @@ def action_up(pattern: list) -> list:
     pattern = rotate_pattern(pattern)
     pattern = rotate_pattern(pattern)
     pattern = rotate_pattern(pattern)
-    pattern = generate_tile_on_move(pattern)
     return pattern
 
 
@@ -162,5 +159,4 @@ def action_down(pattern: list) -> list:
     pattern = rotate_pattern(pattern)
     pattern = rotate_pattern(pattern)
     pattern = rotate_pattern(pattern)
-    pattern = generate_tile_on_move(pattern)
     return pattern
