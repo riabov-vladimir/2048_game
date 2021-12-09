@@ -8,6 +8,7 @@ class Move:
     prev_pattern = None
     score = 0
     game_active = True
+    patterns_are_equal = True
 
     def __init__(self):
 
@@ -16,42 +17,39 @@ class Move:
             [0, 0, 0],
             [0, 0, 0]
         ]
-
         self.prev_pattern = [[
             [0, 0, 0],
             [0, 0, 0],
             [0, 0, 0]
         ]]
-
         self.generate_tile_on_move()
         self.generate_tile_on_move()
 
     def action_right(self):
-        self.pattern = forward_movement(self.pattern)
+        self.forward_movement()
         self.generate_tile_on_move()
 
     def action_left(self):
-        self.pattern = backward_movement(self.pattern)
+        self.backward_movement()
         self.generate_tile_on_move()
 
     def action_up(self):
-        self.pattern = rotate_pattern(self.pattern)
-        self.pattern = forward_movement(self.pattern)
-        self.pattern = rotate_pattern(self.pattern)
-        self.pattern = rotate_pattern(self.pattern)
-        self.pattern = rotate_pattern(self.pattern)
+        self.rotate_pattern()
+        self.forward_movement()
+        self.rotate_pattern()
+        self.rotate_pattern()
+        self.rotate_pattern()
         self.generate_tile_on_move()
 
     def action_down(self):
-        self.pattern = rotate_pattern(self.pattern)
-        self.pattern = backward_movement(self.pattern)
-        self.pattern = rotate_pattern(self.pattern)
-        self.pattern = rotate_pattern(self.pattern)
-        self.pattern = rotate_pattern(self.pattern)
+        self.rotate_pattern()
+        self.backward_movement()
+        self.rotate_pattern()
+        self.rotate_pattern()
+        self.rotate_pattern()
         self.generate_tile_on_move()
 
     def __str__(self):
-        temp = self.prev_pattern[-1]
         return f"""{self.pattern[0]}
 {self.pattern[1]}
 {self.pattern[2]}
@@ -90,53 +88,35 @@ class Move:
         self.pattern[y][x] = max_tile_value
 
 
-    # def rotate_pattern(pattern: list) -> list:
-    #     """
-    #     Rotating 2D-pattern clockwise
-    #     Solved @ https://stackoverflow.com/questions/8421337/rotating-a-two-dimensional-array-in-python
-    #     :param pattern:
-    #     :return:
-    #     """
-    #     rotated_pattern = list(zip(*pattern[::-1]))
-    #     result = []
-    #     for n in rotated_pattern:
-    #         result.append(list(n))
-    #     return result
-    #
-    # def forward_movement(pattern: list) -> list:
-    #     """
-    #     Adapts common_move to work with a list of lists frontwards.
-    #     :param pattern:
-    #     :return:
-    #     """
-    #     for row in pattern:
-    #         common_move(row)
-    #     return pattern
-    #
-    # def backward_movement(pattern: list) -> list:
-    #     """
-    #     Adapts common_move to work with a list of lists backwards.
-    #     :param pattern:
-    #     :return:
-    #     """
-    #     for row in pattern:
-    #         row.reverse()
-    #         common_move(row)
-    #         row.reverse()
-    #     return pattern
-    #
-    # def action_up(pattern: list) -> list:
-    #     pattern = rotate_pattern(pattern)
-    #     pattern = forward_movement(pattern)
-    #     pattern = rotate_pattern(pattern)
-    #     pattern = rotate_pattern(pattern)
-    #     pattern = rotate_pattern(pattern)
-    #     return pattern
-    #
-    # def action_down(pattern: list) -> list:
-    #     pattern = rotate_pattern(pattern)
-    #     pattern = backward_movement(pattern)
-    #     pattern = rotate_pattern(pattern)
-    #     pattern = rotate_pattern(pattern)
-    #     pattern = rotate_pattern(pattern)
-    #     return pattern
+    def rotate_pattern(self):
+        """
+        Rotating 2D-pattern clockwise
+        Solved @ https://stackoverflow.com/questions/8421337/rotating-a-two-dimensional-array-in-python
+        :param pattern:
+        :return:
+        """
+        rotated_pattern = list(zip(*self.pattern[::-1]))
+        result = []
+        for n in rotated_pattern:
+            result.append(list(n))
+        self.pattern = result
+
+    def forward_movement(self):
+        """
+        Adapts common_move to work with a list of lists frontwards.
+        :param pattern:
+        :return:
+        """
+        for row in self.pattern:
+            common_move(row)
+
+    def backward_movement(self):
+        """
+        Adapts common_move to work with a list of lists backwards.
+        :param pattern:
+        :return:
+        """
+        for row in self.pattern:
+            row.reverse()
+            common_move(row)
+            row.reverse()
