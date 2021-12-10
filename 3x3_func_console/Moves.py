@@ -1,4 +1,3 @@
-from actions3x3 import *
 import random
 
 
@@ -6,9 +5,9 @@ class Move:
 
     pattern = None
     prev_pattern = None
-    score = 0
     game_active = True
     patterns_are_equal = True
+    score = 0
 
     def __init__(self):
 
@@ -108,7 +107,25 @@ class Move:
         :return:
         """
         for row in self.pattern:
-            common_move(row)
+            if row[2] == 0:
+                row[2] = row[1]
+                row[1] = row[0]
+                row[0] = 0
+            if row[1] == 0:
+                row[1] = row[0]
+                row[0] = 0
+            if row[2] == row[1]:
+                row[2] = row[2] + row[1]
+                row[1] = row[0]
+                row[0] = 0
+                self.score += row[2] * 2
+            if row[0] == row[1]:
+                row[1] = row[1] + row[0]
+                row[0] = 0
+                self.score += row[1] * 2
+            if row[2] == 0:
+                row[2] = row[1]
+                row[1] = row[0]
 
     def backward_movement(self):
         """
@@ -118,5 +135,23 @@ class Move:
         """
         for row in self.pattern:
             row.reverse()
-            common_move(row)
+            if row[2] == 0:
+                row[2] = row[1]
+                row[1] = row[0]
+                row[0] = 0
+            if row[1] == 0:
+                row[1] = row[0]
+                row[0] = 0
+            if row[2] == row[1]:
+                row[2] = row[2] + row[1]
+                row[1] = row[0]
+                row[0] = 0
+                self.score += row[2] * 2
+            if row[0] == row[1]:
+                row[1] = row[1] + row[0]
+                row[0] = 0
+                self.score += row[1] * 2
+            if row[2] == 0:
+                row[2] = row[1]
+                row[1] = row[0]
             row.reverse()

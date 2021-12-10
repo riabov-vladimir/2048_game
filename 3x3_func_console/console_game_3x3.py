@@ -1,6 +1,5 @@
 from time import sleep
 from Moves import Move
-import actions3x3
 from actions3x3 import *
 from pynput import keyboard
 
@@ -25,7 +24,7 @@ while True:
     print(move)
 
     print(f"""
-Your score: {actions3x3.score} pts
+Your score: {move.score} pts
 
 Use arrow keys and ur brain to play!
 
@@ -64,7 +63,7 @@ print(move)
 print(f"""
 GAME OVER :-(
 
-Your final score: {actions3x3.score} pts
+Your final score: {move.score} pts
 """)
 
 quit()
